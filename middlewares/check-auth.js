@@ -1,7 +1,5 @@
 import jwt from 'jsonwebtoken';
-import newModel from '../models/user.js';
-
-import tokenValidation from './token-validation.js';
+import User from '../models/users.js';
 
 const checkAuth = async(req, res, next) => {
     let token ;
@@ -12,10 +10,8 @@ const checkAuth = async(req, res, next) => {
         try {            
             token = req.headers.authorization.split(' ')[1];
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
-            console.log(decodedToken.id);
             
-            req.user = await newModel.findById(decodedToken.id).
+            req.user = await User.findById(decodedToken.id).
                 select('-password -userValidate -token -createdAt -updatedAt -__v');
 
             return next();

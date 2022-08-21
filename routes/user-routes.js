@@ -3,15 +3,13 @@ const userRouter = express.Router();
 
 import middlewareUserAuth from '../middlewares/check-auth.js';
 
-import { 
-    createUser,
-    authenticationUser,
-    confirmationUser,
-    forgottenPassword,
-    checkToken,
-    changePassword,
-    getUserProfile 
-} from '../controllers/user-controller.js'
+import createUser from '../controllers/user/create-user.js';
+import authenticationUser from '../controllers/user/authentication-user.js';
+import confirmationUser from '../controllers/user/confirmation-user.js';
+import forgottenPassword from '../controllers/user/forgotten-password.js';
+import checkToken from '../controllers/user/check-token.js';
+import changePassword from '../controllers/user/change-password.js';
+import getUserProfile from '../controllers/user/get-user-profile.js'
 
 //Create USER
 userRouter.post('/', createUser );
