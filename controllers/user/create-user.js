@@ -4,9 +4,8 @@ import generateJWT from '../../helpers/token-generator.js';
 const createUser = async (req, res) => {
     try {
         const user = new User(req.body);
-        user.token = generateJWT();
+        user.token = await generateJWT(user.id);
         const userSaved = await user.save();
-
         res.json({
             msg: 
             `We send you a confirm email in the account ${req.body.email}`

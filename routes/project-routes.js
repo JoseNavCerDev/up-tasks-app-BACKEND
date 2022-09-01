@@ -16,7 +16,7 @@ import addProjectCollaborator from '../controllers/project/add-project-collabora
 projectRouter.get('/', checkAuth, getProjectsAll);
 
 //New project
-projectRouter.post('/', checkAuth, newProject);
+projectRouter.post('/new-project', checkAuth, newProject);
 
 //Get project (Single)
 projectRouter.get('/:id', checkAuth, getProject);

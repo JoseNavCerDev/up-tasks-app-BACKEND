@@ -9,11 +9,11 @@ const checkAuth = async(req, res, next) => {
     {
         try {            
             token = req.headers.authorization.split(' ')[1];
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+            const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
             
             req.user = await User.findById(decodedToken.id).
                 select('-password -userValidate -token -createdAt -updatedAt -__v');
-
+                        
             return next();
 
         } catch (error) {
