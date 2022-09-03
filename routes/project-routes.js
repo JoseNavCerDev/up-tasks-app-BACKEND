@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import express from 'express';
 const projectRouter = express.Router();
 
 import checkAuth from '../middlewares/check-auth.js';
