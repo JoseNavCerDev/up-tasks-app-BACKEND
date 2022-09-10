@@ -1,16 +1,27 @@
 import express from 'express';
-const projectRouter = express.Router();
 
 import checkAuth from '../middlewares/check-auth.js';
+import validateIdMongoFormat from '../middlewares/validate-id.js';
+import findProject from '../middlewares/project/find-project.js';
+import privilegesProject from '../middlewares/project/privileges-project.js';
 
+//Controllers Projects
 import newProject from '../controllers/project/new-project.js';
-import getTask from '../controllers/project/get-task.js';
 import getProject from '../controllers/project/get-project.js';
 import getProjectsAll from '../controllers/project/get-projects-all.js';
 import editProject from '../controllers/project/edit-project.js';
 import deleteProjectCollaborator from '../controllers/project/delete-project-collaborator.js';
 import deleteProject from '../controllers/project/delete-project.js';
 import addProjectCollaborator from '../controllers/project/add-project-collaborator.js';
+
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+const projectRouter = express.Router();
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+
 
 //Get projects (ALL)
 projectRouter.get('/', checkAuth, getProjectsAll);
@@ -19,7 +30,7 @@ projectRouter.get('/', checkAuth, getProjectsAll);
 projectRouter.post('/new-project', checkAuth, newProject);
 
 //Get project (Single)
-projectRouter.get('/:id', checkAuth, getProject);
+projectRouter.get('/:id', checkAuth, validateIdMongoFormat, findProject, privilegesProject, getProject);
 
 //Edit project
 projectRouter.put('/:id', checkAuth, editProject);
@@ -32,9 +43,6 @@ projectRouter.post('/add-collaborator/:id', checkAuth, addProjectCollaborator);
 
 //Delete Collaborator
 projectRouter.post('/delete-collaborator/:id', checkAuth, deleteProjectCollaborator);
-
-//Get Tasks
-projectRouter.get('/tasks:/id', checkAuth, getTask );
 
 
 export default projectRouter;
